@@ -1,6 +1,7 @@
 [submodule "hh-suite"]
 	path = hh-suite
 	url = https://github.com/eliza-m/hh-suite
+	branch = LRRpredictor
 
 [submodule "hhsuite/lib/ffindex"]
 	path = hh-suite/lib/ffindex
@@ -9,4 +10,5 @@
 [submodule "RaptorX_Property_Fast"]
 	path = RaptorX_Property_Fast
 	url = https://github.com/eliza-m/RaptorX_Property_Fast
+	branch = LRRpredictor
 
