@@ -1,6 +1,12 @@
 [submodule "hh-suite"]
 	path = hh-suite
 	url = https://github.com/eliza-m/hh-suite
+
+[submodule "hhsuite/lib/ffindex"]
+	path = hh-suite/lib/ffindex
+	url = https://github.com/soedinglab/ffindex_soedinglab.git
+
 [submodule "RaptorX_Property_Fast"]
 	path = RaptorX_Property_Fast
 	url = https://github.com/eliza-m/RaptorX_Property_Fast
+
