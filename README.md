@@ -77,7 +77,7 @@ Make sure that the path set before for Uniprot20 database is still reachable and
 A whole setup for HHsuite, RaptorX-Property and LRRpredictor and downloading all needed files will be performed by typing:
 
 	cd ${LRRpredictor_HOME}
-	./setupAll.sh
+	bash setupAll.sh
   
 #### Usage
 
