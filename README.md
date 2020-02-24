@@ -9,11 +9,13 @@ LRRpredictor is an open-source tool for detecting LRR motifs within leucine rich
 ## A. Docker 
 (in progress...)
 
-## B. Build from source - Ubuntu 16.04 and newer
+## B. Build from source - Ubuntu 14.04 and newer
 ### Prerequisites:
 * gcc 5.4 and higher
 * Cmake 3.1 and higher
 * Python 3.6 and higher
+* scikit-learn v0.22
+* imbalanced-learn v0.6.1
 
 You can install them by:
 
@@ -21,21 +23,16 @@ You can install them by:
 	sudo apt-get install python3.6, python3-pip
 	
 
-If you have Ubuntu 14.04 it is also possible to install, but additional steps are required for installing Python3.6. Please see the following links :
+If you have Ubuntu 14.04 or 16.04, additional steps might be required to install Python3.6. Please see [link1](http://ubuntuhandbook.org/index.php/2017/07/install-python-3-6-1-in-ubuntu-16-04-lts/) and [link2](http://devopspy.com/python/install-python-3-6-ubuntu-lts/)
 
-ubuntuhandbook.org/index.php/2017/07/install-python-3-6-1-in-ubuntu-16-04-lts/
-
-devopspy.com/python/install-python-3-6-ubuntu-lts/
-
-Before continuing please check that you have a functional Python 3.6 version by typing:
+Before continuing please check that you are using Python 3.6 or higher by typing:
 	
 	python3
 	exit()
 	
-Futher we install some additional libraries:
+Futher you can install Scikit-learn and Imbalanced-learn libraries using pip :
 
 	pip3 install scikit-learn==0.22 imbalanced-learn==0.6.1
-
 
 
 ### Cloning the project
@@ -56,61 +53,38 @@ The following variables should not be changed for now :
 	
 In the follwing update we plan to make the instalation more customisable. 	
 
-Setup the number of threads you would like to be used by Make tool when building the project. 
+Setup the number of threads you would like to be used by Make tool when building the project. This variable will not be further used.
 
 	export MakeNoOfThreads=4
+	
+Setup the path where Uniprot20 database will be stored. Please be sure that you have ~50 GB disk space available. This can be downloaded anywhere on your computer as further on symbolic links will be set for the exact path to this database.
 
-Update the new settings for current terminal session
+	echo "export UNIPROT20_PATH=/***replace_with_your_path***/" >> ~/.bashrc
+	
+If you want just to use LRRPredictor, let the bellow variable to "FALSE" value. If you want to download additional training data used for cross validation and testing that is not necessary for prediction, set the bellow variable to TRUE value:
+
+	export isFullDownloadSet=FALSE
+
+Update the new environmental variables for current terminal session
 
 	source ~/.bashrc
 	
-### Downloading Uniprot20 database
-Please be sure that you have ~50 GB available. This can be downloaded anywhere on your computer as further on symbolic links will be set for the exact path to this database.
 
-	export UNIPROT20_PATH=/replace_with_your_path/
-	
-	mkdir ${UNIPROT20_PATH}
-	
-	cd ${UNIPROT20_PATH}
-	
-	wget http://wwwuser.gwdg.de/~compbiol/data/hhsuite/databases/hhsuite_dbs/old-releases/uniprot20_2016_02.tgz
-	
-	tar -xvzf uniprot20_2016_02.tgz
-  
-As we do not need the archive anymore, we can delete it
-
-	rm uniprot20_2016_02.tgz
-
-### Downloading Training PKL files 
-
-	cd ${LRRpredictor_HOME}/crossValidation
-	wget ......
-  
-	cd ${LRRpredictor_HOME}/test
-	wget ...
-  
-	cd ${LRRpredictor_HOME}/fullTraining
-	wget ...
-	tar -xzf fullTraining_pkls.tar.gz
-	mv fullTraining_pkls/* ./
-	rm fullTraining_pkls.tar.gz
-	rmdir fullTraining_pkls
- 
-  
 #### Building, installing and setting up the project
-
-	cd ${LRRpredictor_HOME}
 	
 Make sure that the path set before for Uniprot20 database is still reachable and you see a bunch of files when issueing:
-
-	ls ${UNIPROT20_PATH}/uniprot20_2016_02/
 	
-A whole setup for HHsuite, RaptorX-Property and LRRpredictor will be performed by typing:
+A whole setup for HHsuite, RaptorX-Property and LRRpredictor and downloading all needed files will be performed by typing:
 
+	cd ${LRRpredictor_HOME}
 	./setupAll.sh
   
 #### Usage
 
-	python3 LRRpred.py gpa2.fasta
+	python3 LRRpred.py <file.fasta> <OuputDirectory>
+	
+Please test the example provided:
+
+	python3 LRRpred.py gpa2.fasta results
 	
 
