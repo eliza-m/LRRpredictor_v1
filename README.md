@@ -16,6 +16,7 @@ LRRpredictor is an open-source tool for detecting LRR motifs within leucine rich
 * Python 3.6 and higher
 * scikit-learn v0.22
 * imbalanced-learn v0.6.1
+* Numpy v1.17 and higher
 
 You can install them by:
 
