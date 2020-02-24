@@ -7,11 +7,8 @@ fastaFileRoot = sys.argv[2]
 
 
 ss3file = open( outputFolder + "/" + fastaFileRoot + "/RaptorX-Property/" + fastaFileRoot + ".ss3", "r")
-
-accfile = open(outputFolder + "/" + fastaFileRoot + "/RaptorX-Property/" + fastaFileRoot + ".acc", "r")
-
+accfile = open( outputFolder + "/" + fastaFileRoot + "/RaptorX-Property/" + fastaFileRoot + ".acc", "r")
 disofile = open(outputFolder + "/" + fastaFileRoot + "/RaptorX-Property/" + fastaFileRoot + ".diso", "r")
-
 pssmfile = open(outputFolder + "/" + fastaFileRoot + "/" + fastaFileRoot + ".pssm", "r")
 
 
@@ -24,9 +21,8 @@ lines = ss3file.readlines()
 for x in range(2, len(lines)):
     l = lines[x].split()
     seq.append( l[1] )
-    ss3[0].append( float(l[3]) )
-    ss3[1].append( float(l[4]) )
-    ss3[2].append( float(l[5]) )
+    for i in range(3):
+        ss3[i].append( float(l[ i+3 ]) )
 
 size = len(seq)
 acc = [ [], [], [] ]
@@ -34,9 +30,8 @@ acc = [ [], [], [] ]
 lines = accfile.readlines()
 for x in range(3, len(lines)):
     l = lines[x].split()
-    acc[0].append( float(l[3]) )
-    acc[1].append( float(l[4]) )
-    acc[2].append( float(l[5]) )
+    for i in range(3):
+        acc[i].append( float(l[ i+3 ]) )
 
 
 diso = []

@@ -12,22 +12,10 @@ from sklearn.tree import DecisionTreeClassifier
 
 from sklearn.externals import joblib
 
-sys.path.append('../')
-from prepare_data import *
+sys.path.append('../util/')
 
-
-
-#####################################
-#   Setup
-#####################################
-
-windleft = 5 ;
-windright = 10 ;
-
-
-feature_list_str = ['ssH', 'ssE', 'ssC', 'accB', 'accM', 'accE', 'diso', 'A', 'R', 'N', 'D', 'C', 'Q', 'E', 'G', 'H', 'I', 'L', 'K', 'M', 'F', 'P', 'S', 'T', 'W', 'Y', 'V']
-feature_list_seq = ['A', 'R', 'N', 'D', 'C', 'Q', 'E', 'G', 'H', 'I', 'L', 'K', 'M', 'F', 'P', 'S', 'T', 'W', 'Y', 'V']
-
+from prepareInputData import *
+from util import *
 
 #####################################
 # Load data
@@ -42,8 +30,8 @@ testproteinsDict = ReadData( testFile );
 testset_features_seq, testset_features_str, testset_obs, testset_obs_detail, test_data = PrepareData_2feat( testproteinsDict, feature_list_seq, feature_list_str, windleft, windright  )
 
 # output all stats
-statsFile = open(sys.argv[2], "a+")
-restestFile = open(sys.argv[3], "w")
+# statsFile = open(sys.argv[2], "a+")
+restestFile = open(sys.argv[2], "w")
 
 
 
@@ -56,14 +44,14 @@ testset_pred_proba = []
 classifiers = []
 
 clfnames = [
-'SVC_seq_rbf_1_0.01_bal_',
-'MLP_seq_lbfgs_1.0_300.150.100_none_',
-'MLP_seq_lbfgs_1.0_250.150.100_SMOTETomek_',
-'ada_seq_50_1_SAMME.R_none_',
-'SVC_str_rbf_1_0.001_bal_',
-'MLP_str_adam.es20_0.1_250.125.100_none_',
-'MLP_str_lbfgs_1.0_125.100.10_SMOTETomek_',
-'ada_str_50_1_SAMME.R_none_'
+'retrain_SVC_seq_rbf_1_0.01_bal_',
+'retrain_MLP_seq_lbfgs_1.0_300.150.100_none_',
+'retrain_MLP_seq_lbfgs_1.0_250.150.100_SMOTETomek_',
+'retrain_ada_seq_50_1_SAMME.R_none_',
+'retrain_SVC_str_rbf_1_0.001_bal_',
+'retrain_MLP_str_adam.es20_0.1_250.125.100_none_',
+'retrain_MLP_str_lbfgs_1.0_125.100.10_SMOTETomek_',
+'retrain_ada_str_50_1_SAMME.R_none_'
 ]
 
 clfno = len(clfnames)
@@ -82,8 +70,6 @@ for currentClf in range( clfno ):
     testset_pred.append( classifiers[ currentClf ].predict(features) )
     testset_pred_proba.append( classifiers[ currentClf ].predict_proba(features) )
 
-    # num_params = len(classifiers[ currentClf ].coef_) + 1
-    # mse = mean_squared_error(y, yhat)
 
     PrintProbaHistoStatsLongProba( filename, testset_obs_detail, testset_obs, testset_pred_proba[currentClf], statsFile )
 

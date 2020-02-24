@@ -39,8 +39,8 @@ temp = fastaFileName.split("/")[-1]
 fastaFileRoot = temp.split(".")[0]
 
 try:
-	restestFile = open( outputDir + "/" + fastaFileRoot + ".pred.txt" , "w")
-	restestshortFile = open( outputDir + "/" + fastaFileRoot + ".predshort.txt" , "w")
+	restestFile = open( outputDir + "/" + fastaFileRoot + "/" + fastaFileRoot + ".pred.txt" , "w")
+	restestshortFile = open( outputDir + "/" + fastaFileRoot + "/" + fastaFileRoot + ".predshort.txt" , "w")
 
 except Exception as e:
 	print(e)
