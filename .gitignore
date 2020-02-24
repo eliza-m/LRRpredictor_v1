@@ -1,0 +1,7 @@
+*.o
+.*.swp
+~*
+/tmp/
+/results/
+*.pkl
+*__pycache__*
