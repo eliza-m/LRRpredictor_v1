@@ -1,0 +1,1 @@
+#Protein	pos	clf1	clf2	clf3	clf4	clf5	clf6	clf7	clf8	LRRpred	
