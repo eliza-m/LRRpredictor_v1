@@ -2,8 +2,6 @@
 
 LRRpredictor is an open-source tool for detecting LRR motifs within leucine rich repeats proteins.
 
-# Warning ! Currently the github project is being uploaded... Please return in a few days...
-
 # Instalation & Usage
 
 ## A. Docker 
