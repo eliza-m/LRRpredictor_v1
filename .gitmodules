@@ -3,8 +3,8 @@
 	url = https://github.com/eliza-m/hh-suite
 	branch = LRRpredictor
 
-[submodule "hh-suite/ffindex_soedinglab"]
-	path = hh-suite/ffindex_soedinglab
+[submodule "hh-suite/lib/ffindex"]
+	path = hh-suite/lib/ffindex
 	url = https://github.com/soedinglab/ffindex_soedinglab.git
 	branch = LRRpredictor
 
