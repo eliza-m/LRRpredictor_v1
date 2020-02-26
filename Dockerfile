@@ -38,7 +38,15 @@ COPY download-validation-set.sh /download-validation-set.sh
 # Build HHsuite
 WORKDIR /home/test/LRRpredictor_v1/hh-suite
 RUN git checkout LRRpredictor
-RUN git clone https://github.com/eliza-m/ffindex_soedinglab.git
+
+WORKDIR /home/test/LRRpredictor_v1/hh-suite/lib
+RUN git clone https://github.com/eliza-m/ffindex_soedinglab.git ffindex
+
+WORKDIR /home/test/LRRpredictor_v1/hh-suite/lib/ffindex
+RUN git checkout 360e417
+
+
+WORKDIR /home/test/LRRpredictor_v1/hh-suite/
 RUN mkdir build
 WORKDIR /home/test/LRRpredictor_v1/hh-suite/build
 RUN cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=${HHSUITE_INSTALL_BASE_DIR} ..
@@ -46,6 +54,9 @@ RUN make -j $MakeNoOfThreads
 RUN make install
 
 # Build RaptorX
+WORKDIR /home/test/LRRpredictor_v1/RaptorX_Property_Fast/
+RUN git checkout LRRpredictor
+
 WORKDIR /home/test/LRRpredictor_v1/RaptorX_Property_Fast/source_code
 RUN make -j $MakeNoOfThreads
 WORKDIR /home/test/LRRpredictor_v1/RaptorX_Property_Fast
