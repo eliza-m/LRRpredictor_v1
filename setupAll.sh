@@ -4,8 +4,15 @@ echo "Building HH-suite... "
 cd $HHSUITE_HOME
 
 git checkout LRRpredictor
-git clone https://github.com/eliza-m/ffindex_soedinglab.git
 
+mkdir lib
+cd lib
+
+git clone https://github.com/eliza-m/ffindex_soedinglab.git ffindex
+cd ffindex
+git checkout 360e417
+
+cd ../../
 mkdir build
 cd build
 
@@ -41,7 +48,10 @@ echo "Downloading Uniprot20... DONE"
 
 echo "Building RaptorX-Property..."
 
-cd ${RaptorX_HOME}/source_code
+cd ${RaptorX_HOME}
+git checkout LRRpredictor
+
+cd source_code
 make -j $MakeNoOfThreads
 
 cd ../
