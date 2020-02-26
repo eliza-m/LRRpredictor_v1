@@ -100,6 +100,9 @@ fi
 
 echo "Downloading LRRpredictor training data... DONE"
 
+cd $LRRpredictor_HOME
+mkdir results
+
 
 
 
