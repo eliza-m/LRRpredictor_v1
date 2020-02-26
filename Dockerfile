@@ -13,40 +13,49 @@ RUN apt-get update && \
 RUN pip3 install scikit-learn==0.22 imbalanced-learn==0.6.1
 
 # Clone the repo
+RUN mkdir /home/test/
+WORKDIR /home/test/
 RUN git clone --recursive https://github.com/eliza-m/LRRpredictor_v1
 
 # Set environment variables
-ENV LRRpredictor_HOME=/LRRpredictor_v1 RaptorX_HOME=/LRRpredictor_v1/RaptorX_Property_Fast HHSUITE_HOME=/LRRpredictor_v1/hh-suite  HHSUITE_INSTALL_BASE_DIR=/LRRpredictor_v1/hh-suite	
-ENV HHLIB=${HHSUITE_INSTALL_BASE_DIR} PATH=${PATH}:${HHSUITE_INSTALL_BASE_DIR}/bin:${HHSUITE_INSTALL_BASE_DIR}/scripts
+ENV HOME=/home/test/
+ENV LRRpredictor_HOME=/home/test/LRRpredictor_v1 
+ENV RaptorX_HOME=/home/test/LRRpredictor_v1/RaptorX_Property_Fast 
+ENV HHSUITE_HOME=/home/test/LRRpredictor_v1/hh-suite  
+ENV HHSUITE_INSTALL_BASE_DIR=/home/test/LRRpredictor_v1/hh-suite	
+ENV HHLIB=${HHSUITE_INSTALL_BASE_DIR} 
+ENV PATH=${PATH}:${HHSUITE_INSTALL_BASE_DIR}/bin:${HHSUITE_INSTALL_BASE_DIR}/scripts
 ENV MakeNoOfThreads=4
 
 # Prepare Uniprot Download
 RUN mkdir /uniprot20 && \
     mkdir /uniprot20/uniprot20_2016_02
-ENV UNIPROT20_PATH /uniprot20
+ENV UNIPROT20_PATH=/uniprot20
 COPY download-uniprot.sh /download-uniprot.sh
-COPY download_validation_set.sh /download_validation_set.sh
+COPY download-validation-set.sh /download-validation-set.sh
 
 
 # Build HHsuite
-WORKDIR /LRRpredictor_v1/hh-suite
+WORKDIR /home/test/LRRpredictor_v1/hh-suite
+RUN git checkout LRRpredictor
+RUN git clone https://github.com/eliza-m/ffindex_soedinglab.git
 RUN mkdir build
-WORKDIR /LRRpredictor_v1/hh-suite/build
+WORKDIR /home/test/LRRpredictor_v1/hh-suite/build
 RUN cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=${HHSUITE_INSTALL_BASE_DIR} ..
 RUN make -j $MakeNoOfThreads
 RUN make install
 
 # Build RaptorX
-WORKDIR /LRRpredictor_v1/RaptorX_Property_Fast/source_code
+WORKDIR /home/test/LRRpredictor_v1/RaptorX_Property_Fast/source_code
 RUN make -j $MakeNoOfThreads
-WORKDIR /LRRpredictor_v1/RaptorX_Property_Fast
+WORKDIR /home/test/LRRpredictor_v1/RaptorX_Property_Fast
 RUN perl setup.pl
-WORKDIR /LRRpredictor_v1/RaptorX_Property_Fast/databases
+WORKDIR /home/test/LRRpredictor_v1/RaptorX_Property_Fast/databases
 RUN rm uniprot20 && \
     ln -s /uniprot20/uniprot20_2016_02 uniprot20
 
 # Download training data
-WORKDIR /LRRpredictor_v1/fullTraining
+WORKDIR /home/test/LRRpredictor_v1/fullTraining
 RUN wget old.biochim.ro/ib/departments/strbiochem/LRRpred/fullTraining_pkls.tar.gz && \
 	tar -xzf fullTraining_pkls.tar.gz && \
 	mv fullTraining_pkls/* ./ && \
@@ -54,7 +63,8 @@ RUN wget old.biochim.ro/ib/departments/strbiochem/LRRpred/fullTraining_pkls.tar.
 	rmdir fullTraining_pkls
 
 # Prepare the results folder
-WORKDIR /LRRpredictor_v1
+WORKDIR /home/test/LRRpredictor_v1
 RUN mkdir results
 
 WORKDIR /
+

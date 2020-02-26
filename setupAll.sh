@@ -4,6 +4,7 @@ echo "Building HH-suite... "
 cd $HHSUITE_HOME
 
 git checkout LRRpredictor
+git clone https://github.com/eliza-m/ffindex_soedinglab.git
 
 mkdir build
 cd build

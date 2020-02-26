@@ -4,7 +4,7 @@ fastaFileRoot=$2
 outputFolder=$3
 
 
-bash ${RaptorX_HOME}/oneline_command.sh ${fastaFile}
+bash ${RaptorX_HOME}/oneline_command.sh ${fastaFile} 4 1
 
 mkdir ${outputFolder}/${fastaFileRoot}
 mkdir ${outputFolder}/${fastaFileRoot}/RaptorX-Property/
