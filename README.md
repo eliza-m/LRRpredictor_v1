@@ -30,16 +30,37 @@ A docker image containing LRRpredictor readily installed and setup can be pulled
 
 For Ubuntu/Debian:
 ```
-	sudo wget old.biochim.ro/ib/departments/strbiochem/LRRpred/193.231.158.8_5000.crt -O /usr/local/share/ca-certificates/
+	sudo wget old.biochim.ro/ib/departments/strbiochem/LRRpred/193.231.158.8_5000.crt -O /usr/local/share/ca-certificates/193.231.158.8_5000.crt
 	sudo update-ca-certificates
 	sudo service docker restart
 ```
 2. After the ca-certificate is set, the image can be pulled :
 ```
-	docker pull 193.231.158.8:5000/lrrpredictor:1.0.0`
+	sudo docker pull 193.231.158.8:5000/lrrpredictor:1.0.0
 ```
-3. To run it
-	....to be continued
+You can see the that the image has been pulled by :
+```
+	sudo docker image ls
+
+REPOSITORY                        TAG                 IMAGE ID            CREATED             SIZE
+193.231.158.8:5000/lrrpredictor   1.0.0               24d71f69f21f        4 hours ago         2.61GB
+```
+	
+3. Run the docker image. Now the terminal promt has changed to `root@<IMAGE ID>`.
+```
+	sudo docker run -it 193.231.158.8:5000/lrrpredictor:1.0.0 bash
+```
+
+4. Further we will download Uniprot20 database. Make sure that you have around 50 GB disk space available at the location were the docker image is located ::exclamation:: :
+```
+	bash download-uniprot.sh
+```
+Additionally, if you want to download supplemental training data used for cross validation and testing that is not necessary for running LRRpredictor (these are not needed anymore for prediction):
+```
+	bash download-validation-set.sh
+```
+
+Everythong is setup and now you can use LRRpredictor - see [Usage](#usage) section.
 	
 	
 
@@ -72,7 +93,7 @@ Further you can install Scikit-learn and Imbalanced-learn libraries using pip :
 Please be sure you are cloning the project in a location where you have write permissions and at least 5 GB available :exclamation:.
 RaptorX-Property path generation mechanism when installing :exclamation: requires the project to be placed anywhere in the home directory - '/home/username/.../'. This limitation will be solved in LRRpredictor v1.1.
 
-	# You can cone the project it anywhere in your home directory. This is only an example...
+	# You can clone the project it anywhere in your home directory. This is only an example...
 	cd /home/***replace_with_your_username***/
 	
 	git clone --recursive https://github.com/eliza-m/LRRpredictor_v1
@@ -82,7 +103,7 @@ Check that you see ` LRRpredictor_v1 ` directory, when issueing :
 
 	ls -l
 	
-The following variables should not be changed for now. In the follwing update we plan to make the instalation more customisable.
+The following variables should not be changed for now. In the following update we plan to make the installation more customisable.
 
 	echo "export LRRpredictor_HOME="$(pwd)"/LRRpredictor_v1" >> ~/.bashrc
 	echo "export RaptorX_HOME="$(pwd)"/LRRpredictor_v1/RaptorX_Property_Fast" >> ~/.bashrc
@@ -228,13 +249,14 @@ lrwxrwxrwx 1 1001 1001   28 Feb 26  2016 uniprot20_2016_02_hhm_db -> uniprot20_2
 
 * RaptorX-Property or HH-suite encountered a problem with your sequence. Check if you have a folder named - `TMP_proteinName_*` that is generated only if something went wrong.
 
+```
 root@ea846151db35:/home/test/LRRpredictor_v1# ls -l $RaptorX_HOME/TMP_gpa2_*
-../../RaptorX_Property_Fast/TMP_gpa2_16833:
 total 16
 -rw-rw-r-- 1 eliza eliza  891 Jan 12 23:03 gpa2.fasta_raw
 -rw-rw-r-- 1 eliza eliza  891 Jan 12 23:03 gpa2.seq
 -rw-rw-r-- 1 eliza eliza  285 Jan 12 23:08 gpa2.tgt_log1
 -rw-rw-r-- 1 eliza eliza 6897 Jan 12 23:08 gpa2.tgt_log2
+```
 
 Additional information that could indicate the problem can be found in `gpa2.tgt_log1` and `gpa2.tgt_log2` files.
 
@@ -244,7 +266,7 @@ Additional information that could indicate the problem can be found in `gpa2.tgt
 
 If you use LRRpredictor please cite:
 
-Eliza C. Martin1, Octavina C. A. Sukarta, Laurentiu Spiridon, Laurentiu G. Grigore, Vlad Constantinescu, Robi Tacutu, Aska Goverse, Andrei-Jose Petrescu (2020) LRRpredictor - a new LRR motif detection method for irregular motifs of plant NLR proteins using ensemble of classifiers . *Under reviweing*.
+Eliza C. Martin, Octavina C. A. Sukarta, Laurentiu Spiridon, Laurentiu G. Grigore, Vlad Constantinescu, Robi Tacutu, Aska Goverse, Andrei-Jose Petrescu (2020) LRRpredictor - a new LRR motif detection method for irregular motifs of plant NLR proteins using ensemble of classifiers . *Under reviweing*.
 
 
 ## Bibliography
