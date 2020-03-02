@@ -180,14 +180,13 @@ gpa2    9       M       -       1       0.0093  0.0007  0.0008  0.0119  0.0001  
 ```
 
 Header description:
-prot 	- protein name
-resid 	- residue number
-aa	- amino acid one letter code
-unused	- unused field (this field is used only training and testing data and indicates the position where a true LRR motifs starts; 
-	these positions were identified from structural files).
-hasPred	- '1' for positions for which prediction are generated, '0' for margins.
-clf1-8	- Each classifiers predicted probability (min: 0, max 1)
-LRRpred	- LRRpredictor probability based on all eight classifiers.
+* prot &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- protein name
+* resid &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- residue number
+* aa &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- amino acid one letter code
+* unused &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- unused field (this field is used only training and testing data and indicates the position where a true LRR motifs starts; these positions were identified from structural files).
+* hasPred &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- '1' for positions for which prediction are generated, '0' for margins.
+* clf1-8 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Each classifiers predicted probability (min: 0, max 1)
+* LRRpred &nbsp;&nbsp;&nbsp;&nbsp;- LRRpredictor probability based on all eight classifiers.
 
 
 #### ProteinName.predshort.txt file
@@ -206,10 +205,10 @@ gpa2    676     0.8824  0.8095  1.0     0.7785  0.9525  0.8812  0.9969  0.7421  
 ```
 
 Header description:
-prot 	- protein name
-pos 	- residue number where a detected LRR motif starts (i.e first `L` from `LxxLxL` minimalistic motif)
-clf1-8	- Each classifiers predicted probability (min: 0, max 1)
-LRRpred	- LRRpredictor probability based on all eight classifiers.
+* prot 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- protein name
+* pos 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- residue number where a detected LRR motif starts (i.e first `L` from `LxxLxL` minimalistic motif)
+* clf1-8	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Each classifiers predicted probability (min: 0, max 1)
+* LRRpred	&nbsp;&nbsp;&nbsp;- LRRpredictor probability based on all eight classifiers.
 
 Starting from columns 12 until the end, the amino acid sequence of the detected LRR motif is shown: 5 positions upstream the motif (-5 to -1), the minimalistic motif LxxLxL and 5 positions downstream (6 to 10).  
 
