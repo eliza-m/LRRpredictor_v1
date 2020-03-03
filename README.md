@@ -36,7 +36,7 @@ For Ubuntu/Debian:
 ```
 2. After the ca-certificate is set, the image can be pulled :
 ```
-	sudo docker pull 193.231.158.8:5000/lrrpredictor:1.0.0
+	sudo docker pull 193.231.158.8:5000/lrrpredictor:1.0.1
 ```
 You can see the that the image has been pulled by :
 ```
@@ -48,7 +48,7 @@ REPOSITORY                        TAG                 IMAGE ID            CREATE
 	
 3. Run the docker image. Now the terminal promt has changed to `root@<IMAGE ID>`.
 ```
-	sudo docker run -it 193.231.158.8:5000/lrrpredictor:1.0.0 bash
+	sudo docker run -it 193.231.158.8:5000/lrrpredictor:1.0.1 bash
 ```
 
 4. Further we will download Uniprot20 database. Make sure that you have around 50 GB disk space available at the location were the docker image is located ::exclamation:: :
