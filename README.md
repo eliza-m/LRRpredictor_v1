@@ -5,6 +5,9 @@ Content summary:
 * [Project status](#project-status)
 * [Installation](#installation)
 * [Usage](#usage)
+* [Cite LRRpredictor](#citing-LRRpredictor)
+* [References](#references)
+
 
 ## General Info
 LRRpredictor is an open-source tool for detecting LRR motifs within leucine rich repeats proteins.
@@ -261,14 +264,14 @@ Additional information that could indicate the problem can be found in `gpa2.tgt
 
 
 
-## Reference
+## Citing LRRpredictor
 
 If you use LRRpredictor please cite:
 
-Eliza C. Martin, Octavina C. A. Sukarta, Laurentiu Spiridon, Laurentiu G. Grigore, Vlad Constantinescu, Robi Tacutu, Aska Goverse, Andrei-Jose Petrescu (2020) LRRpredictor - a new LRR motif detection method for irregular motifs of plant NLR proteins using ensemble of classifiers . *Under reviweing*.
+[Eliza C. Martin, Octavina C. A. Sukarta, Laurentiu Spiridon, Laurentiu G. Grigore, Vlad Constantinescu, Robi Tacutu, Aska Goverse, Andrei-Jose Petrescu. LRRpredictor - a new LRR motif detection method for irregular motifs of plant NLR proteins using ensemble of classifiers. Genes 2020, 11, 286.](https://www.mdpi.com/2073-4425/11/3/286)
 
 
-## Bibliography
+## References
 
 [1] Wang, S.; Li, W.; Liu, S.; Xu, J. RaptorX-Property: a web server for protein structure property prediction. Nucleic Acids Res. 2016, 44, W430–W435.
 
