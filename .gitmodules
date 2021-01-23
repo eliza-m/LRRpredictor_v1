@@ -1,15 +1,13 @@
-[submodule "hh-suite"]
-	path = hh-suite
-	url = https://github.com/eliza-m/hh-suite
-	branch = LRRpredictor
-
 [submodule "hh-suite/lib/ffindex"]
 	path = hh-suite/lib/ffindex
 	url = https://github.com/soedinglab/ffindex_soedinglab.git
 	branch = LRRpredictor
 
-[submodule "RaptorX_Property_Fast"]
-	path = RaptorX_Property_Fast
-	url = https://github.com/eliza-m/RaptorX_Property_Fast
-	branch = LRRpredictor
-
+[submodule "Predict_Property"]
+	path = Predict_Property
+	url = https://github.com/eliza-m/Predict_Property.git
+	branch = for_lrrpredictor
+[submodule "TGT_Package"]
+	path = TGT_Package
+	url = https://github.com/eliza-m/TGT_Package.git
+	branch = for_lrrpredictor
