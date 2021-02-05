@@ -22,12 +22,6 @@ def checkEnvVar():
    		print("Please set the environment variables for LRRpredictor_HOME")
    		sys.exit(1)
 
-	try:
-		RaptorX_HOME = os.environ["RaptorX_HOME"]
-	except KeyError:
-   		print("Please set the environment variables for RaptorX_HOME")
-   		sys.exit(1)
-
 	print( "OK")
 	return 1
 	# more checks needed... to be continued...

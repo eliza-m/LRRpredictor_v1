@@ -3,20 +3,15 @@ echo "Building HH-suite... "
 
 cd $HHSUITE_HOME
 
-git checkout LRRpredictor
-
-mkdir lib
-cd lib
-
-git clone https://github.com/eliza-m/ffindex_soedinglab.git ffindex
-cd ffindex
-git checkout 360e417
-
-cd ../../
+git checkout master
 mkdir build
 cd build
 
-cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=${HHSUITE_INSTALL_BASE_DIR} ..
+# For Mac !!
+# CC="$(brew --prefix)/bin/gcc-10" CXX="$(brew --prefix)/bin/g++-10" cmake -DCMAKE_INSTALL_PREFIX=. ..
+
+cmake -DCMAKE_INSTALL_PREFIX=. ..
+
 make -j $MakeNoOfThreads
 
 echo "Building HH-suite... DONE "
@@ -46,22 +41,51 @@ echo "Downloading Uniprot20... DONE"
 
 
 
-echo "Building RaptorX-Property..."
+echo "Building RaptorX Predict Property..."
 
-cd ${RaptorX_HOME}
+cd ${LRRpredictor_HOME}/Predict_Property
+
 git checkout LRRpredictor
 
 cd source_code
 make -j $MakeNoOfThreads
-
-cd ../
-./setup.pl
 
 cd databases
 rm uniprot20
 ln -s ${UNIPROT20_PATH}/uniprot20_2016_02 uniprot20
 
 echo "Building RaptorX-Property... DONE "
+
+
+
+
+
+
+
+
+echo "Building TGT_Package..."
+
+cd ${LRRpredictor_HOME}/TGT_Package/
+git checkout LRRpredictor
+
+cd ${LRRpredictor_HOME}/TGT_Package/RaptorX-SS8/
+git checkout LRRpredictor
+
+cd src
+make predict
+
+cd {LRRpredictor_HOME}/TGT_Package/source_code/
+make -j $MakeNoOfThreads
+
+cd databases
+rm uniprot20
+ln -s ${UNIPROT20_PATH}/uniprot20_2016_02 uniprot20
+
+
+
+echo "Building TGT_Package... DONE "
+
+
 
 
 
@@ -96,9 +120,9 @@ then
 
 fi
 
-
-
 echo "Downloading LRRpredictor training data... DONE"
+
+
 
 cd $LRRpredictor_HOME
 mkdir results

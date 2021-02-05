@@ -11,3 +11,6 @@
 	path = TGT_Package
 	url = https://github.com/eliza-m/TGT_Package.git
 	branch = for_lrrpredictor
+[submodule "hh-suite"]
+	path = hh-suite
+	url = https://github.com/eliza-m/hh-suite.git
