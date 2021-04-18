@@ -110,11 +110,17 @@ The following variables should not be changed for now. In the following update w
 	echo "export LRRpredictor_HOME="$(pwd)"/LRRpredictor_v1" >> ~/.bashrc
 	source  ~/.bashrc
 	
+#### Building, installing and setting up the project
+A whole setup workflow for HHsuite, RaptorX-Property and LRRpredictor and also for downloading all the needed files will be performed by typing:
+
+	cd ${LRRpredictor_HOME}
+	bash setupAll.sh
+	
 	
 #### Setting up the Uniprot20 database	
 LRRpredictor requires the Uniprot20 database. The following steps need to be done only once, when LRRpredictor is set up for the first time.
 
-**Case 1: ** If you already have the Uniprot20 database in your computer, please run the following:
+**Case 1:** If you already have the Uniprot20 database in your computer, please run the following:
 
 	UNIPROT20_PATH=/***replace_with_your_path***/"	
 	
@@ -125,7 +131,7 @@ LRRpredictor requires the Uniprot20 database. The following steps need to be don
 	cd ${LRRpredictor_HOME}
 	
 	
-**Case 2: ** If you do not have the Uniprot20 database, we will need download it.
+**Case 2:** If you do not have the Uniprot20 database, we will need download it.
 Please be sure that you have ~50 GB disk space available :exclamation:. This can be downloaded anywhere on your computer as further on symbolic links will be set up for the exact path to this database.
 	
 	UNIPROT20_PATH=/***replace with the path where you want to download Uniprot***/"	
@@ -142,12 +148,6 @@ Please be sure that you have ~50 GB disk space available :exclamation:. This can
 	ln -s ${UNIPROT20_PATH}/uniprot20_2016_02 uniprot20
 	cd ${LRRpredictor_HOME}
 
-	
-#### Building, installing and setting up the project
-A whole setup workflow for HHsuite, RaptorX-Property and LRRpredictor and also for downloading all the needed files will be performed by typing:
-
-	cd ${LRRpredictor_HOME}
-	bash setupAll.sh
 	
 Now the installation is complete. You can use now LRRpredictor. 
 
