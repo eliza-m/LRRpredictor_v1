@@ -21,10 +21,7 @@ RUN git clone --recursive https://github.com/eliza-m/LRRpredictor_v1
 ENV HOME=/home/test/
 ENV LRRpredictor_HOME=/home/test/LRRpredictor_v1 
 ENV RaptorX_HOME=/home/test/LRRpredictor_v1/RaptorX_Property_Fast 
-ENV HHSUITE_HOME=/home/test/LRRpredictor_v1/hh-suite  
-ENV HHSUITE_INSTALL_BASE_DIR=/home/test/LRRpredictor_v1/hh-suite	
-ENV HHLIB=${HHSUITE_INSTALL_BASE_DIR} 
-ENV PATH=${PATH}:${HHSUITE_INSTALL_BASE_DIR}/bin:${HHSUITE_INSTALL_BASE_DIR}/scripts
+ENV HHSUITE_HOME=/home/test/LRRpredictor_v1/hh-suite  	
 ENV MakeNoOfThreads=4
 
 # Prepare Uniprot Download
@@ -37,7 +34,7 @@ COPY download-validation-set.sh /download-validation-set.sh
 
 # Build HHsuite
 WORKDIR /home/test/LRRpredictor_v1/hh-suite
-RUN git checkout LRRpredictor
+RUN git checkout LRRpredictor && git pull
 
 WORKDIR /home/test/LRRpredictor_v1/hh-suite/lib
 RUN git clone https://github.com/eliza-m/ffindex_soedinglab.git ffindex
@@ -47,15 +44,15 @@ RUN git checkout 360e417
 
 
 WORKDIR /home/test/LRRpredictor_v1/hh-suite/
-RUN mkdir build
+RUN mkdir build && mkdir install
 WORKDIR /home/test/LRRpredictor_v1/hh-suite/build
-RUN cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=${HHSUITE_INSTALL_BASE_DIR} ..
+RUN cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=../install ..
 RUN make -j $MakeNoOfThreads
 RUN make install
 
 # Build RaptorX
 WORKDIR /home/test/LRRpredictor_v1/RaptorX_Property_Fast/
-RUN git checkout LRRpredictor
+RUN git checkout LRRpredictor && git pull
 
 WORKDIR /home/test/LRRpredictor_v1/RaptorX_Property_Fast/source_code
 RUN make -j $MakeNoOfThreads
