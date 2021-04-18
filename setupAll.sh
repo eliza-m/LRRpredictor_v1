@@ -1,9 +1,12 @@
 
+
+
+
 echo "Building HH-suite... "
 
-cd $HHSUITE_HOME
+cd ${LRRpredictor_HOME}/hh-suite/
 
-git checkout LRRpredictor
+git checkout LRRpredictor && git pull
 
 mkdir lib
 cd lib
@@ -14,10 +17,11 @@ git checkout 360e417
 
 cd ../../
 mkdir build
+mkdir install
 cd build
 
-cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=${HHSUITE_INSTALL_BASE_DIR} ..
-make -j $MakeNoOfThreads
+cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=../install ..
+make -j$(nproc) 
 
 echo "Building HH-suite... DONE "
 
@@ -29,30 +33,34 @@ echo "Installing HH-suite... DONE"
 
 
 
+if [ "$downloadUniprot20" == "TRUE" ];
+then
 
+	echo "Downloading Uniprot20..."
 
-echo "Downloading Uniprot20..."
-
-cd ${UNIPROT20_PATH}
+	cd ${UNIPROT20_PATH}
 	
-wget http://wwwuser.gwdg.de/~compbiol/data/hhsuite/databases/hhsuite_dbs/old-releases/uniprot20_2016_02.tgz
+	wget http://wwwuser.gwdg.de/~compbiol/data/hhsuite/databases/hhsuite_dbs/old-releases/uniprot20_2016_02.tgz
 	
-tar -xvzf uniprot20_2016_02.tgz
+	tar -xvzf uniprot20_2016_02.tgz
 
-rm uniprot20_2016_02.tgz
+	rm uniprot20_2016_02.tgz
 
-echo "Downloading Uniprot20... DONE"
+	echo "Downloading Uniprot20... DONE"
 
+	echo ${UNIPROT20_PATH}
+
+fi
 
 
 
 echo "Building RaptorX-Property..."
 
-cd ${RaptorX_HOME}
-git checkout LRRpredictor
+cd ${LRRpredictor_HOME}/RaptorX_Property_Fast/
+git checkout LRRpredictor && git pull
 
 cd source_code
-make -j $MakeNoOfThreads
+make -j$(nproc)
 
 cd ../
 ./setup.pl

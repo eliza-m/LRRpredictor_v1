@@ -4,14 +4,16 @@ import sys
 outputFolder = sys.argv[1]
 fastaFileRoot = sys.argv[2]
 
+try:
 
+    ss3file = open( outputFolder + "/" + fastaFileRoot + "/RaptorX-Property/" + fastaFileRoot + ".ss3", "r")
+    accfile = open( outputFolder + "/" + fastaFileRoot + "/RaptorX-Property/" + fastaFileRoot + ".acc", "r")
+    disofile = open(outputFolder + "/" + fastaFileRoot + "/RaptorX-Property/" + fastaFileRoot + ".diso", "r")
+    pssmfile = open(outputFolder + "/" + fastaFileRoot + "/" + fastaFileRoot + ".pssm", "r")
 
-ss3file = open( outputFolder + "/" + fastaFileRoot + "/RaptorX-Property/" + fastaFileRoot + ".ss3", "r")
-accfile = open( outputFolder + "/" + fastaFileRoot + "/RaptorX-Property/" + fastaFileRoot + ".acc", "r")
-disofile = open(outputFolder + "/" + fastaFileRoot + "/RaptorX-Property/" + fastaFileRoot + ".diso", "r")
-pssmfile = open(outputFolder + "/" + fastaFileRoot + "/" + fastaFileRoot + ".pssm", "r")
-
-
+except Exception as e:
+        print(e)
+        sys.exit(1);
 
 
 ss3 = [ [], [], [] ]

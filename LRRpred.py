@@ -26,9 +26,15 @@ from util import *
 fastaFileName = sys.argv[1]
 outputDir = sys.argv[2]
 
-inputFile = getInputData( fastaFileName, outputDir )
+try:
+    inputFile = getInputData( fastaFileName, outputDir )
+    testproteinsDict = ReadData( inputFile )
 
-testproteinsDict = ReadData( inputFile )
+except Exception as e:
+    print("There where problems in generating the input for LRRpredictor. Please see the error messages above or within RaptorX log files located at results/protname/RaptorX-Property/ \n")
+    sys.exit(1)
+
+
 
 testset_features_seq, testset_features_str, testset_obs, testset_obs_detail, test_data = PrepareData_2feat( testproteinsDict, feature_list_seq, feature_list_str, windleft, windright  )
 

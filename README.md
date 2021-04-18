@@ -109,19 +109,17 @@ Check that you see ` LRRpredictor_v1 ` directory, when issueing :
 The following variables should not be changed for now. In the following update we plan to make the installation more customisable.
 
 	echo "export LRRpredictor_HOME="$(pwd)"/LRRpredictor_v1" >> ~/.bashrc
-	echo "export RaptorX_HOME="$(pwd)"/LRRpredictor_v1/RaptorX_Property_Fast" >> ~/.bashrc
-	echo "export HHSUITE_HOME="$(pwd)"/LRRpredictor_v1/hh-suite" >> ~/.bashrc
-	export HHSUITE_INSTALL_BASE_DIR=$(pwd)/LRRpredictor_v1/hh-suite	
-	echo "export HHLIB="${HHSUITE_INSTALL_BASE_DIR} >> ~/.bashrc
-	echo 'export PATH=${PATH}:'${HHSUITE_INSTALL_BASE_DIR}"/bin:"${HHSUITE_INSTALL_BASE_DIR}"/scripts" >> ~/.bashrc
 	
-Setup the number of threads you would like to be used by `make` tool when building the project. This variable will not be further used.
 
-	export MakeNoOfThreads=4
-	
-Setup the path where Uniprot20 database will be stored. Please be sure that you have ~50 GB disk space available :exclamation:. This can be downloaded anywhere on your computer as further on symbolic links will be set for the exact path to this database.
+Setup the path where Uniprot20 database already is or will be stored. 
 
 	echo "export UNIPROT20_PATH=/***replace_with_your_path***/" >> ~/.bashrc
+
+If you don't have the Uniprot20 database already downlaoded it will automatically be downloaded by setting the following variable to be true:
+
+	export donwloadUniprot20=True
+
+Please be sure that you have ~50 GB disk space available :exclamation:. This can be downloaded anywhere on your computer as further on symbolic links will be set for the exact path to this database.
 	
 If you just want to use LRRPredictor, keep the bellow variable set to `FALSE`. If you want to download additional training data used for cross validation and testing that is not necessary for prediction, set the bellow variable to `TRUE`:
 
