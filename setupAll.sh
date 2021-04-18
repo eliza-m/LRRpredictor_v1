@@ -1,5 +1,4 @@
-
-
+#!/bin/bash
 
 
 echo "Building HH-suite... "
@@ -33,25 +32,6 @@ echo "Installing HH-suite... DONE"
 
 
 
-if [ "$downloadUniprot20" == "TRUE" ];
-then
-
-	echo "Downloading Uniprot20..."
-
-	cd ${UNIPROT20_PATH}
-	
-	wget http://wwwuser.gwdg.de/~compbiol/data/hhsuite/databases/hhsuite_dbs/old-releases/uniprot20_2016_02.tgz
-	
-	tar -xvzf uniprot20_2016_02.tgz
-
-	rm uniprot20_2016_02.tgz
-
-	echo "Downloading Uniprot20... DONE"
-
-	echo ${UNIPROT20_PATH}
-
-fi
-
 
 
 echo "Building RaptorX-Property..."
@@ -64,10 +44,6 @@ make -j$(nproc)
 
 cd ../
 ./setup.pl
-
-cd databases
-rm uniprot20
-ln -s ${UNIPROT20_PATH}/uniprot20_2016_02 uniprot20
 
 echo "Building RaptorX-Property... DONE "
 
