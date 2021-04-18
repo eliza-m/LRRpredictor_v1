@@ -5,7 +5,7 @@ Content summary:
 * [Project status](#project-status)
 * [Installation](#installation)
 * [Usage](#usage)
-* [Cite LRRpredictor](#citing-LRRpredictor)
+* [Cite LRRpredictor](#citing-lrrpredictor)
 * [References](#references)
 
 
@@ -16,7 +16,7 @@ It resides on secondary structure, relative solvent accessibility and disorder p
 ## Project status 
 Future updates planned for version 1.1:
 * RaptorX-Property is currently being updated and as this is finished, LRRpredictor will integrate these updates as well as a newer version of HHsuite (currently not compatible with RaptorX-Property).
-* The project cannot be installed on Ubuntu WSL (Windows Linux Subsystem). This will be fixed in v1.1.
+* The project cannot be installed on Ubuntu WSL (Windows Linux Subsystem) or MacOS. This will be fixed in v1.1.
 * LRRpredictor currently accepts only single sequence input in FASTA format. A feature update for other sequence formats, as well as multiple sequence fasta input files is currently being implemented.  
 
 
@@ -94,10 +94,9 @@ Further you can install Scikit-learn and Imbalanced-learn libraries using pip :
 ### Installation & initial setup 
 #### Cloning the project
 Please be sure you are cloning the project in a location where you have write permissions and at least 5 GB available :exclamation:.
-RaptorX-Property path generation mechanism when installing :exclamation: requires the project to be placed anywhere in the home directory - '/home/username/.../'. This limitation will be solved in LRRpredictor v1.1.
 
-	# You can clone the project it anywhere in your home directory. This is only an example...
-	cd /home/***replace_with_your_username***/
+	# You can clone the project it anywhere in your computer. This is only an example...
+	cd /home/test/
 	
 	git clone --recursive https://github.com/eliza-m/LRRpredictor_v1
 	
@@ -109,25 +108,40 @@ Check that you see ` LRRpredictor_v1 ` directory, when issueing :
 The following variables should not be changed for now. In the following update we plan to make the installation more customisable.
 
 	echo "export LRRpredictor_HOME="$(pwd)"/LRRpredictor_v1" >> ~/.bashrc
+	source  ~/.bashrc
 	
-
-Setup the path where Uniprot20 database already is or will be stored. 
-
-	echo "export UNIPROT20_PATH=/***replace_with_your_path***/" >> ~/.bashrc
-
-If you don't have the Uniprot20 database already downlaoded it will automatically be downloaded by setting the following variable to be true:
-
-	export donwloadUniprot20=True
-
-Please be sure that you have ~50 GB disk space available :exclamation:. This can be downloaded anywhere on your computer as further on symbolic links will be set for the exact path to this database.
 	
-If you just want to use LRRPredictor, keep the bellow variable set to `FALSE`. If you want to download additional training data used for cross validation and testing that is not necessary for prediction, set the bellow variable to `TRUE`:
+#### Setting up the Uniprot20 database	
+LRRpredictor requires the Uniprot20 database. The following steps need to be done only once, when LRRpredictor is set up for the first time.
 
-	export isFullDownloadSet=FALSE
+**Case 1: ** If you already have the Uniprot20 database in your computer, please run the following:
 
-Update the new environmental variables for current terminal session
+	UNIPROT20_PATH=/***replace_with_your_path***/"	
+	
+	# defining a symbolic link to point to your local Uniprot20 copy.
+	cd ${LRRpredictor_HOME}/RaptorX_Property_Fast/databases
+	rm uniprot20
+	ln -s ${UNIPROT20_PATH}/uniprot20_2016_02 uniprot20
+	cd ${LRRpredictor_HOME}
+	
+	
+**Case 2: ** If you do not have the Uniprot20 database, we will need download it.
+Please be sure that you have ~50 GB disk space available :exclamation:. This can be downloaded anywhere on your computer as further on symbolic links will be set up for the exact path to this database.
+	
+	UNIPROT20_PATH=/***replace with the path where you want to download Uniprot***/"	
+	
+	# Downloading Uniprot20
+	cd ${UNIPROT20_PATH}
+	wget http://wwwuser.gwdg.de/~compbiol/data/hhsuite/databases/hhsuite_dbs/old-releases/uniprot20_2016_02.tgz
+	tar -xvzf uniprot20_2016_02.tgz
+	rm uniprot20_2016_02.tgz
+	
+	# defining a symbolic link to point to your local Uniprot20 copy.
+	cd ${LRRpredictor_HOME}/RaptorX_Property_Fast/databases
+	rm uniprot20
+	ln -s ${UNIPROT20_PATH}/uniprot20_2016_02 uniprot20
+	cd ${LRRpredictor_HOME}
 
-	source ~/.bashrc
 	
 #### Building, installing and setting up the project
 A whole setup workflow for HHsuite, RaptorX-Property and LRRpredictor and also for downloading all the needed files will be performed by typing:
