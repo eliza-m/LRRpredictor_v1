@@ -227,24 +227,20 @@ Header description:
 
 Starting from columns 12 until the end, the amino acid sequence of the detected LRR motif is shown: 5 positions upstream the motif (-5 to -1), the minimalistic motif LxxLxL and 5 positions downstream (6 to 10).  
 
+
 #### Troubleshooting
 
 If these files were not generated when runing the provided example, something went wrong during installation. 
 Most likely reasons could be:
 
-* Environment variables are not set. Try the following and see if you get simillar paths.
+* Environment variable is not set. Try the following and see if you get simillar paths.
 ```
-root@ea846151db35:/home/test/LRRpredictor_v1# echo -e $LRRpredictor_HOME '\n'$RaptorX_HOME'\n'$HHSUITE_HOME'\n'$HHSUITE_INSTALL_BASE_DIR
+root@ea846151db35:/home/test/LRRpredictor_v1# echo $LRRpredictor_HOME
 /home/test/LRRpredictor_v1
-/home/test/LRRpredictor_v1/RaptorX_Property_Fast
-/home/test/LRRpredictor_v1/hh-suite
-/home/test/LRRpredictor_v1/hh-suite
 ```
-* The folder where the project was build is not in `/home/user/...`. See if the above paths start with `/home/user/`
-
-* Uniprot20 was not downloaded. Check the following
+* Uniprot20 was not downloaded or the symbolic link does not point to the uniprot20 files. Check the following
 ```
-root@ea846151db35:/home/test/LRRpredictor_v1# ls -lh $RaptorX_HOME/databases/uniprot20/
+root@ea846151db35:/home/test/LRRpredictor_v1# ls -lh ${LRRpredictor_HOME}/RaptorX_Property_Fast/databases/uniprot20/
 total 39G
 -rw------- 1 1001 1001  637 Feb 26  2016 md5sum
 -rw------- 1 1001 1001 1.9G Feb 26  2016 uniprot20_2016_02.cs219
@@ -261,18 +257,35 @@ lrwxrwxrwx 1 1001 1001   28 Feb 26  2016 uniprot20_2016_02_hhm_db -> uniprot20_2
 -rw------- 1 1001 1001 3.4M Feb 26  2016 uniprot20_2016_02_hhm_db.index
 ```
 
-* RaptorX-Property or HH-suite encountered a problem with your sequence. Check if you have a folder named - `TMP_proteinName_*` that is generated only if something went wrong.
+* RaptorX-Property or HH-suite encountered a problem with your sequence. Check if you have the following log files from RaptorX as they should provide info regarding what went wrong.
 
 ```
-root@ea846151db35:/home/test/LRRpredictor_v1# ls -l $RaptorX_HOME/TMP_gpa2_*
+root@ea846151db35:/home/test/LRRpredictor_v1# ls -l results/gpa2/RaptorX-Property/gpa2.tgt_log*
 total 16
--rw-rw-r-- 1 eliza eliza  891 Jan 12 23:03 gpa2.fasta_raw
--rw-rw-r-- 1 eliza eliza  891 Jan 12 23:03 gpa2.seq
 -rw-rw-r-- 1 eliza eliza  285 Jan 12 23:08 gpa2.tgt_log1
 -rw-rw-r-- 1 eliza eliza 6897 Jan 12 23:08 gpa2.tgt_log2
 ```
 
-Additional information that could indicate the problem can be found in `gpa2.tgt_log1` and `gpa2.tgt_log2` files.
+* The pre-compiled binaries provided by RaptorX-Property do not work on your architecture/OS. Try run the following:
+```
+root@ea846151db35:/home/test/LRRpredictor_v1# ${LRRpredictor_HOME}/RaptorX_Property_Fast/util/SS8_Predict/bin/bcnf_mpitp
+```
+The ‘expected’ output of this internal binary would be similar to this :
+```
+I am  0
+$JOB_ID 433 3
+$JOB_ID bcast 433 3
+```
+If the binary does not work, it will say something like :
+```cannot execute binary file: Exec format error```
+
+This issue is still currently being addressed as these binaries cannot easily be recompiled as they come from other 3rd party software used by Raptorx. This will be solved in the near future.
+
+* HHsuite is not working properly. Try the following:
+```
+root@ea846151db35:/home/test/LRRpredictor_v1# ${LRRpredictor_HOME}/hh-suite/install/bin/hhblits
+```
+If the help menu is printed, hhsuite should be fine, if an exec error appears, please reinstall hh-suite or rerun the setulAll.sh script.
 
 
 
