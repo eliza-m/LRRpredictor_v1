@@ -3,10 +3,6 @@
 	url = https://github.com/eliza-m/hh-suite
 	branch = LRRpredictor
 
-#[submodule "hh-suite/lib/ffindex"]
-#	path = hh-suite/lib/ffindex
-#	url = https://github.com/soedinglab/ffindex_soedinglab.git
-#	branch = LRRpredictor
 
 [submodule "RaptorX_Property_Fast"]
 	path = RaptorX_Property_Fast
